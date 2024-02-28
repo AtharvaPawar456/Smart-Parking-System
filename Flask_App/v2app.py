@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import sqlite3
+import hashlib
 
 database = 'parking.db'
 
 app = Flask(__name__)
+app.secret_key = '5d894a501c88fbe735c6ff496a6d3e51'  # Change this to a secure secret key
 
 # Function to initialize database
 def initialize_database():
@@ -11,6 +13,10 @@ def initialize_database():
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS parking_slots
                  (id INTEGER PRIMARY KEY, slot TEXT UNIQUE, status TEXT)''')
+
+    c.execute('''CREATE TABLE IF NOT EXISTS users
+                 (id INTEGER PRIMARY KEY, name TEXT, password TEXT, email TEXT UNIQUE)''')
+    
     conn.commit()
     conn.close()
 
@@ -51,6 +57,31 @@ def get_slot_status(slot):
         return result[0]
     else:
         return None
+
+# Function to register a new user
+def register_user(name, password):
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    try:
+        # Hash the password before storing it in the database
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        c.execute("INSERT INTO users (name, password) VALUES (?, ?)", (name, hashed_password))
+        conn.commit()
+        conn.close()
+        return True
+    except sqlite3.IntegrityError:
+        conn.close()
+        return False
+
+# Function to authenticate a user
+def authenticate_user(name, password):
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    c.execute("SELECT id, name FROM users WHERE name=? AND password=?", (name, hashed_password))
+    result = c.fetchone()
+    conn.close()
+    return result
 
 # Route to home page
 @app.route('/')
@@ -112,16 +143,55 @@ def get_status():
     else:
         return jsonify({'error': f'Slot {slot} not found'}), 404
 
+# Route to register a new user
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        password = request.form.get('password')
+
+        if not name or not password:
+            return render_template('register.html', error='Name and password are required')
+
+        if register_user(name, password):
+            return redirect(url_for('login'))
+        else:
+            return render_template('register.html', error='Name already registered')
+
+    return render_template('register.html', error=None)
+
+# Route to login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        password = request.form.get('password')
+
+        if not name or not password:
+            return render_template('login.html', error='Name and password are required')
+
+        user = authenticate_user(name, password)
+
+        if user:
+            session['user_id'] = user[0]
+            session['user_name'] = user[1]
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid name or password')
+
+    return render_template('login.html', error=None)
+
+# Route to logout
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+@app.route('/about')
+def about():
+    return render_template('about.html', error=None)
+
+
 if __name__ == '__main__':
-    # initialize_database()
+    initialize_database()
     app.run(debug=True)
-    # app.run(host='0.0.0.0', port=80)
-
-'''
-
-http://127.0.0.1:5000/insert?slot=slot1
-
-http://127.0.0.1:5000/update?slot=slot1&status=on
-
-
-'''

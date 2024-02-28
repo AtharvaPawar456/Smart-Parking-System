@@ -9,6 +9,27 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Style for fixed navigation bar */
+        .fixed-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #076119;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .bottom-nav-icon {
+            color: #fff;
+            font-size: 24px;
+        }
+    </style>
+
     <title>Smart Parking System</title>
 
 </head>
@@ -31,5 +52,13 @@
             </div>
         {% endfor %}
     </div>
+
+    <!-- Fixed bottom navigation bar -->
+    <nav class="fixed-bottom-nav">
+        <a href="{{ url_for('home') }}" class="bottom-nav-icon"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('about') }}" class="bottom-nav-icon"><i class="fas fa-info-circle"></i> About</a>
+        <a href="{{ url_for('register') }}" class="bottom-nav-icon"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="{{ url_for('login') }}" class="bottom-nav-icon"><i class="fas fa-sign-in-alt"></i> Login</a>
+    </nav>
 </body>
 </html>

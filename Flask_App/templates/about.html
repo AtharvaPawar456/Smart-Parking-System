@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- <meta http-equiv="refresh" content="40"> -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <title>About Us - Smart Parking System</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .person-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .person {
+            max-width: 300px;
+            text-align: left;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .description-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: left;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Style for fixed navigation bar */
+        .fixed-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #076119;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .bottom-nav-icon {
+            color: #fff;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-2xl font-bold mb-10 text-center mt-4">About Us<br>Smart Parking System</h1>
+
+    <div class="">
+        <!-- Shubham -->
+        <div class="person">
+            <h2 class="text-center">Shubham</h2>
+            <p>Email: shubham@gmail.com</p>
+        </div>
+
+        <!-- Ashwin -->
+        <div class="person">
+            <h2 class="text-center">Ashwin</h2>
+            <p>Email: ashwin@gmail.com</p>
+        </div>
+
+        <!-- Akshat -->
+        <div class="person">
+            <h2 class="text-center">Akshat</h2>
+            <p>Email: akshat@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="description-container mb-20">
+        <p>
+            Welcome to the Smart Parking System, an innovative solution designed to make parking easier and more efficient.
+            Our system utilizes advanced technologies to streamline the parking process and enhance the overall parking experience.
+        </p>
+
+        <p>
+            Key Features:
+            <ul>
+                <li>Real-time Parking Availability</li>
+                <li>Mobile App Integration</li>
+                <li>Automated Payment System</li>
+                <li>Smart Navigation</li>
+                <li>Environmentally Friendly Solutions</li>
+            </ul>
+        </p>
+
+        <p>
+            With our Smart Parking System, we aim to reduce traffic congestion, save time for drivers, and contribute to a more sustainable urban environment.
+        </p>
+    </div>
+
+    <!-- Fixed bottom navigation bar -->
+    <nav class="fixed-bottom-nav ">
+        <a href="{{ url_for('home') }}" class="bottom-nav-icon"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('about') }}" class="bottom-nav-icon"><i class="fas fa-info-circle"></i> About</a>
+        <a href="{{ url_for('register') }}" class="bottom-nav-icon"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="{{ url_for('login') }}" class="bottom-nav-icon"><i class="fas fa-sign-in-alt"></i> Login</a>
+    </nav>
+</body>
+</html>
