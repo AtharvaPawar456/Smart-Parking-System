@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import sqlite3
 import hashlib
+import folium
+
 
 database = 'parking.db'
 
@@ -83,21 +85,85 @@ def authenticate_user(name, password):
     conn.close()
     return result
 
+
+
+
+
+
+
+locations = [
+    {"name": "Prabhadevi",  "lat": 19.015831,   "lon": 72.82939, "link": "http://example.com/location1"},
+    {"name": "Dadar",       "lat": 19.0178,     "lon": 72.8478, "link": "http://example.com/location2"},
+    {"name": "Bandra",      "lat": 19.0596,     "lon": 72.8295, "link": "http://example.com/location3"},
+    {"name": "Andheri",     "lat": 19.1136,     "lon": 72.8697, "link": "http://example.com/location4"},
+    # {"name": "Borivali",    "lat": 19.2307,     "lon": 72.8567, "link": "http://example.com/location5"}
+]
+
+
 # Route to home page
 @app.route('/')
 def home():
-    slots_info = []
-    conn = sqlite3.connect(database)
-    c = conn.cursor()
-    c.execute("SELECT slot, status FROM parking_slots")
-    results = c.fetchall()
-    conn.close()
+    # Create map centered at the first location
+    currentLoc = [locations[0]['lat'], locations[0]['lon'] ]
+    my_map = folium.Map(location=[currentLoc[0], currentLoc[1]], zoom_start=10)
 
-    for result in results:
-        slot, status = result
-        slots_info.append({'slot': slot, 'status': status})
+    # Add markers for each location
+    for loc in locations:
+        folium.Marker(location=[loc['lat'], loc['lon']], popup=loc['name'], tooltip=loc['name'],
+                      icon=folium.Icon(color='blue')).add_to(my_map)
 
-    return render_template('index.html', slots_info=slots_info)
+        # Add a circle around the current spot
+        folium.Circle(location=[loc['lat'], loc['lon']], radius=500, color='blue', fill=True, fill_color='blue').add_to(my_map)
+
+
+    # Add a red marker for the current spot
+    # folium.Marker(currentLoc, icon=folium.Icon(color='red')).add_to(my_map)
+
+    # Convert the map to HTML
+    map_html = my_map._repr_html_()
+    return render_template('map.html', map_html=map_html, locationsdata=locations)
+
+
+
+# Route to viewstation page
+@app.route('/viewstation')
+def viewstation():
+    # Get the station name from the query parameters
+    station_name = request.args.get('stationname', None)
+
+    print("Station Name:", station_name)
+    # Check if the station name is valid
+    if station_name:
+        # If valid, print the station name
+        print("Station Name:", station_name)
+        # Render the template with the station data
+
+        slots_info = []
+        conn = sqlite3.connect(database)
+        c = conn.cursor()
+        c.execute("SELECT slot, status FROM parking_slots")
+        results = c.fetchall()
+        conn.close()
+
+        for result in results:
+            slot, status = result
+            slots_info.append({'slot': slot, 'status': status})
+
+        print("slots_info",slots_info)
+
+        # return render_template('map.html', data=stationdata)
+        return render_template('index.html', data=station_name,  slots_info=slots_info)
+    
+    
+    else:
+        # If station name is not provided or invalid, return an error message
+        return "Invalid station name or station name not provided."
+
+
+
+
+
+
 
 # Routes
 @app.route('/update', methods=['GET'])
@@ -193,5 +259,5 @@ def about():
 
 
 if __name__ == '__main__':
-    initialize_database()
+    # initialize_database()
     app.run(debug=True)

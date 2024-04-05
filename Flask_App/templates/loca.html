@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3955e362ab26897886ce5e7e183508b8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_3955e362ab26897886ce5e7e183508b8" ></div>
+            <div id="markerNameDiv"></div>
+        
+</body>
+<script>
+    
+    
+            var map_3955e362ab26897886ce5e7e183508b8 = L.map(
+                "map_3955e362ab26897886ce5e7e183508b8",
+                {
+                    center: [19.015831, 72.82939],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 15,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_0c57b3e1f7bbf3830233f4ce603eee22 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3955e362ab26897886ce5e7e183508b8);
+        
+    
+            var marker_c22cf0d6735ec67f03932b57f51d2de4 = L.marker(
+                [19.015831, 72.82939],
+                {}
+            ).addTo(map_3955e362ab26897886ce5e7e183508b8);
+        
+    
+            var icon_eb9c47d597e85100a87998259b69125e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c22cf0d6735ec67f03932b57f51d2de4.setIcon(icon_eb9c47d597e85100a87998259b69125e);
+        
+    
+        var popup_f44fa4dead64c8b67b7d4cc1549e352f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c6c7e9397970121f419a2e3eb698963c = $(`<div id="html_c6c7e9397970121f419a2e3eb698963c" style="width: 100.0%; height: 100.0%;"><a href="{{ locations[0]['link'] }}" target="_blank">Location 1</a></div>`)[0];
+                popup_f44fa4dead64c8b67b7d4cc1549e352f.setContent(html_c6c7e9397970121f419a2e3eb698963c);
+            
+        
+
+        marker_c22cf0d6735ec67f03932b57f51d2de4.bindPopup(popup_f44fa4dead64c8b67b7d4cc1549e352f)
+        ;
+
+        // Event handler for clicking on a marker
+        marker_c22cf0d6735ec67f03932b57f51d2de4.on('click', function(e){
+            document.getElementById('markerNameDiv').innerHTML = "Marker Name: Location 1";
+        });
+        
+    
+    
+            marker_c22cf0d6735ec67f03932b57f51d2de4.bindTooltip(
+                `<div>
+                     <a href="{{ locations[0]['link'] }}" target="_blank">Location 1</a>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_982a5c94ddcc860367234db2bd3ddcb0 = L.marker(
+                [19.014831, 72.82839],
+                {}
+            ).addTo(map_3955e362ab26897886ce5e7e183508b8);
+        
+    
+            var icon_fed5319edc0b6d2ce9f6eda1bdb67d1a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_982a5c94ddcc860367234db2bd3ddcb0.setIcon(icon_fed5319edc0b6d2ce9f6eda1bdb67d1a);
+        
+    
+        var popup_3986da5388721ea39280525e39d8c71d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_247b14c728ca1956b69e818c75e6334e = $(`<div id="html_247b14c728ca1956b69e818c75e6334e" style="width: 100.0%; height: 100.0%;"><a href="{{ locations[1]['link'] }}" target="_blank">Location 2</a></div>`)[0];
+                popup_3986da5388721ea39280525e39d8c71d.setContent(html_247b14c728ca1956b69e818c75e6334e);
+            
+        
+
+        marker_982a5c94ddcc860367234db2bd3ddcb0.bindPopup(popup_3986da5388721ea39280525e39d8c71d)
+        ;
+
+        // Event handler for clicking on a marker
+        marker_982a5c94ddcc860367234db2bd3ddcb0.on('click', function(e){
+            document.getElementById('markerNameDiv').innerHTML = "Marker Name: Location 2";
+        });
+        
+    
+    
+            marker_982a5c94ddcc860367234db2bd3ddcb0.bindTooltip(
+                `<div>
+                     <a href="{{ locations[1]['link'] }}" target="_blank">Location 2</a>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0807a4d1dbe33b1c9e1b26180a5fe268 = L.marker(
+                [19.015631, 72.82439],
+                {}
+            ).addTo(map_3955e362ab26897886ce5e7e183508b8);
+        
+    
+            var icon_91cfe7063ac39a4b9045c41f0cf6cd10 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0807a4d1dbe33b1c9e1b26180a5fe268.setIcon(icon_91cfe7063ac39a4b9045c41f0cf6cd10);
+        
+    
+        var popup_7426b24dec4796027ca040971f7b41cd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3390733046a4988265377158ea6691ed = $(`<div id="html_3390733046a4988265377158ea6691ed" style="width: 100.0%; height: 100.0%;"><a href="{{ locations[2]['link'] }}" target="_blank">Location 3</a></div>`)[0];
+                popup_7426b24dec4796027ca040971f7b41cd.setContent(html_3390733046a4988265377158ea6691ed);
+            
+        
+
+        marker_0807a4d1dbe33b1c9e1b26180a5fe268.bindPopup(popup_7426b24dec4796027ca040971f7b41cd)
+        ;
+
+        // Event handler for clicking on a marker
+        marker_0807a4d1dbe33b1c9e1b26180a5fe268.on('click', function(e){
+            document.getElementById('markerNameDiv').innerHTML = "Marker Name: Location 3";
+        });
+        
+    
+    
+            marker_0807a4d1dbe33b1c9e1b26180a5fe268.bindTooltip(
+                `<div>
+                     <a href="{{ locations[2]['link'] }}" target="_blank">Location 3</a>
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
